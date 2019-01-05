@@ -9,43 +9,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.shaary.skillperfection.data.TimeData
+import com.shaary.skillperfection.data.Session
 import kotlinx.android.synthetic.main.fragment_timer.*
 import java.util.*
 
 //TODO: save state
 
 class TimerFragment : Fragment() {
-    val TAG: String = TimerFragment::class.toString()
-    lateinit var timeData: TimeData
-
-    private var startButton: Button? = null
-    private var stopButton: Button? = null
+    private val TAG: String = TimerFragment::class.toString()
+    lateinit var timeData: Session
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_timer, container, false)
-        startButton = view.findViewById(R.id.start_button)
-        stopButton = view.findViewById(R.id.stop_button)
-        Log.d(TAG, "button text" + startButton?.text)
+        val startButton: Button = view.findViewById(R.id.start_button)
+        val stopButton: Button = view.findViewById(R.id.cancel_button)
+        Log.d(TAG, "button text" + startButton.text)
 
-        startButton!!.setOnClickListener{
-            if (startButton?.text == "START") {
-                timeData = TimeData(startedTime = System.currentTimeMillis() / 1000)
+        startButton.setOnClickListener{
+            if (startButton.text == "START") {
+                timeData = Session(startedTime = System.currentTimeMillis() / 1000)
                 timeData.isRunning = true
-                startButton?.text = getString(R.string.save_button_text)
+                startButton.text = getString(R.string.save_button_text)
                 runTimer()
                 Log.d(TAG, "running")
             } else {
-                startButton?.text = getString(R.string.start_button_text)
+                startButton.text = getString(R.string.start_button_text)
                 timeData.stopTime = System.currentTimeMillis() / 1000
                 resetTimer()
             }
         }
 
-        stopButton?.setOnClickListener{ resetTimer() }
+        stopButton.setOnClickListener{ resetTimer() }
 
         return view
     }
