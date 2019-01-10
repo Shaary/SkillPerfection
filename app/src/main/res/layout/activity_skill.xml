@@ -8,4 +8,80 @@
     android:id="@+id/container_layout">
 
 
+    <ImageView
+        android:id="@+id/skill_image"
+        android:layout_width="126dp"
+        android:layout_height="122dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/skill_name"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/skill_image"
+        android:text="Programming"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/skill_time"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/skill_name"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/skill_image"
+        android:text="Time invested: 10 000 hours"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/lvl_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/skill_image"
+        android:layout_below="@id/skill_time"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="8dp"
+        android:text="Level: 100" />
+
+    <RelativeLayout
+        android:id="@+id/timer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="142dp">
+
+
+        <TextView
+            android:id="@+id/time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="00:00:00"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_text_view"
+            android:layout_toStartOf="@+id/cancel_button"
+            android:text="@string/start_button_text" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/time_text_view"
+            android:layout_marginEnd="103dp"
+            android:text="Cancel" />
+    </RelativeLayout>
 </RelativeLayout>

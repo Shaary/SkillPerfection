@@ -14,15 +14,22 @@ class SkillActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skill)
 
-        //TODO: move to model-view
-        val db = Room.databaseBuilder(this, TrackingDatabase::class.java, "TimeDb").build()
-        val data = Session(startedTime = System.currentTimeMillis() / 1000)
-        Log.d(SkillActivity::class.java.name, "passed in object" + data.id)
-        thread {
-            db.sessionDao().insert(data)
-        }
+        //Id of selected skill
+        val skillId: Long = intent.getLongExtra("id", 0)
 
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container_layout,TimerFragment()).commit()
+
+
+
+
+        //TODO: move to model-view
+//        val db = Room.databaseBuilder(this, TrackingDatabase::class.java, "TimeDb").build()
+//        val data = Session(startedTime = System.currentTimeMillis() / 1000, skillId = 1)
+//        Log.d(SkillActivity::class.java.name, "passed in object" + data.id)
+//        thread {
+//            db.sessionDao().insert(data)
+//        }
+//
+//        val fragmentTransaction = supportFragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.container_layout,TimerFragment()).commit()
     }
 }

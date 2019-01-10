@@ -5,7 +5,9 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "session", foreignKeys = [(ForeignKey(entity = Skill::class,
-        parentColumns = arrayOf("id"), childColumns = arrayOf("skillId")))])
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("skillId"),
+        onDelete = ForeignKey.CASCADE))])
 class Session (
         @PrimaryKey (autoGenerate = true) var id: Long = 0,
         var seconds: Long = 0,

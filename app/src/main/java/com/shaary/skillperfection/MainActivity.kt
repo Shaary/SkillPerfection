@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         val hobbies: ArrayList<Skill> = arrayListOf()
 
+        //Populates recyclerview
         for (i in 1..10) {
-            hobbies.add(Skill("Programming"))
+            hobbies.add(Skill(name = "Programming"))
         }
 
         //TODO: add card view

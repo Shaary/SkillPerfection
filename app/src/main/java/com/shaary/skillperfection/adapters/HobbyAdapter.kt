@@ -1,14 +1,18 @@
 package com.shaary.skillperfection.adapters
 
+import android.content.Context
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.shaary.skillperfection.R
+import com.shaary.skillperfection.SkillActivity
 import com.shaary.skillperfection.data.Skill
 
-class HobbyAdapter(val hobbies: ArrayList<Skill>): RecyclerView.Adapter<HobbyAdapter.ViewHolder>() {
+class HobbyAdapter(private val hobbies: ArrayList<Skill>): RecyclerView.Adapter<HobbyAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,14 +23,33 @@ class HobbyAdapter(val hobbies: ArrayList<Skill>): RecyclerView.Adapter<HobbyAda
     override fun getItemCount() = hobbies.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.hobbyName.text = hobbies[position].name
-        //TODO: convert long to normal time format
-        holder.hobbyTime.text = hobbies[position].time.toString()
-
+//        holder.hobbyName.text = hobbies[position].name
+//        //TODO: convert long to normal time format
+//        holder.hobbyTime.text = hobbies[position].time.toString()
+        holder.bind(hobbies[position])
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val hobbyName: TextView = itemView.findViewById(R.id.hobby_name)
         val hobbyTime: TextView = itemView.findViewById(R.id.hobby_time)
+
+        lateinit var skill: Skill
+
+        fun bind(skill: Skill) {
+            this.skill = skill
+            hobbyName.text = skill.name
+            //TODO: convert long to normal time format
+            hobbyTime.text = skill.time.toString()
+        }
+
+        init {
+            itemView.setOnClickListener{
+                val intent = Intent(itemView.context, SkillActivity::class.java)
+                intent.putExtra("id", skill.id)
+                itemView.context.startActivity(intent)
+            }
+        }
+
+
     }
 }

@@ -29,7 +29,7 @@ class TimerFragment : Fragment() {
 
         startButton.setOnClickListener{
             if (startButton.text == "START") {
-                timeData = Session(startedTime = System.currentTimeMillis() / 1000)
+                timeData = Session(startedTime = System.currentTimeMillis() / 1000, skillId = 1)
                 timeData.isRunning = true
                 startButton.text = getString(R.string.save_button_text)
                 runTimer()
