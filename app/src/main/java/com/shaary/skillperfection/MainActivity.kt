@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         skillViewModel.allSkills.observe(this, Observer { skills ->
-            skills?.let { adapter.setSkills(it) }
+            skills?.let { adapter.submitList(it) }
         })
 
 
