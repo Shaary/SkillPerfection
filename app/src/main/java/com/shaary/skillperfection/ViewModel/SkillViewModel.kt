@@ -5,13 +5,18 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import com.shaary.skillperfection.data.Skill
 import com.shaary.skillperfection.data.TrackingDatabase
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.Main
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
+import kotlin.coroutines.CoroutineContext
 
 class SkillViewModel(application: Application) : AndroidViewModel(application) {
+
+    private var parentJob = Job()
+    private val coroutineContext: CoroutineContext
+        get() = parentJob + Dispatchers.Main
+
+    private val scope = CoroutineScope(coroutineContext)
+
     private val repository: SkillRepo
     val allSkills: LiveData<List<Skill>>
 
@@ -21,10 +26,12 @@ class SkillViewModel(application: Application) : AndroidViewModel(application) {
         allSkills = repository.allSkills
     }
 
-    private var parentJob = Job()
+    override fun onCleared() {
+        super.onCleared()
+        parentJob.cancel()
+    }
 
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Main
-
-    private val scope = CoroutineScope(coroutineContext)
+    fun insert(skill: Skill) = scope.launch(Dispatchers.IO) {
+        repository.insert(skill)
+    }
 }

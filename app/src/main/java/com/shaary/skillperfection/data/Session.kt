@@ -2,9 +2,12 @@ package com.shaary.skillperfection.data
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "session", foreignKeys = [(ForeignKey(entity = Skill::class,
+@Entity(tableName = "session",
+        indices = [(Index("skillId"))],
+        foreignKeys = [(ForeignKey(entity = Skill::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("skillId"),
         onDelete = ForeignKey.CASCADE))])

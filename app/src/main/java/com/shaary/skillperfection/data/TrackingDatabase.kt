@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [Session::class, Skill::class], version = 1)
+@Database(entities = [Session::class, Skill::class], version = 1, exportSchema = false)
 abstract class TrackingDatabase: RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun skillDao(): SkillDao
