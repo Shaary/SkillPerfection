@@ -47,6 +47,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, CreateSkillActivity::class.java)
             startActivityForResult(intent, newSkillRequestCode)
         }
+
+        adapter.setOnItemClickListener(object : HobbyAdapter.onItemClickListener {
+            override fun onItemClick(skill: Skill) {
+                val intent = Intent(this@MainActivity, SkillActivity::class.java)
+                intent.putExtra("id", skill.id)
+                intent.putExtra("name", skill.name)
+                intent.putExtra("time", skill.time)
+                startActivity(intent)
+            }
+        })
     }
 
     companion object {

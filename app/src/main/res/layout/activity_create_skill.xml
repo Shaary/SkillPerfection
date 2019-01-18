@@ -27,11 +27,11 @@
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="save" />
+        android:text="@string/start_button_text" />
 
     <Button
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="cancel" />
+        android:text="@string/cancel_button_text" />
 </LinearLayout>

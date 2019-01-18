@@ -4,6 +4,7 @@ import android.support.v7.recyclerview.extensions.ListAdapter
 import android.content.Intent
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +17,8 @@ class HobbyAdapter : ListAdapter<Skill, HobbyAdapter.ViewHolder>(DIFF_CALLBACK){
 
     private var listener: onItemClickListener? = null
 
-
-    //TODO: move onclick to main activity
     interface onItemClickListener {
-        fun onItemClick(note: Skill)
+        fun onItemClick(skill: Skill)
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {
@@ -50,23 +49,16 @@ class HobbyAdapter : ListAdapter<Skill, HobbyAdapter.ViewHolder>(DIFF_CALLBACK){
         fun bind(skill: Skill) {
             this.skill = skill
             hobbyName.text = skill.name
-            //TODO: convert long to normal time format
             hobbyTime.text = skill.time.toString()
         }
 
         init {
-            itemView.setOnClickListener{
-                val intent = Intent(itemView.context, SkillActivity::class.java)
-                intent.putExtra("id", skill.id)
-                itemView.context.startActivity(intent)
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener!!.onItemClick(getItem(position))
+                }
             }
-
-//            itemView.setOnClickListener {
-//                val position = adapterPosition
-//                if (listener != null && position != RecyclerView.NO_POSITION) {
-//                    listener!!.onItemClick(getItem(position))
-//                }
-//            }
         }
     }
 
