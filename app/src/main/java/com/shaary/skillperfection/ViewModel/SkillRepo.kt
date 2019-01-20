@@ -12,4 +12,14 @@ class SkillRepo(private val skillDao: SkillDao) {
     suspend fun insert(skill: Skill) {
         skillDao.insert(skill)
     }
+
+    @WorkerThread
+    suspend fun delete(id: Long) {
+        skillDao.delete(id)
+    }
+
+    @WorkerThread
+    suspend fun update(skill: Skill){
+        skillDao.update(skill)
+    }
 }

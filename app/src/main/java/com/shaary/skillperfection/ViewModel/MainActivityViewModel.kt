@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.android.Main
 import kotlin.coroutines.CoroutineContext
 
-class SkillViewModel(application: Application) : AndroidViewModel(application) {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext

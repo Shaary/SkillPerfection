@@ -10,14 +10,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import com.shaary.skillperfection.ViewModel.SkillViewModel
+import com.shaary.skillperfection.ViewModel.MainActivityViewModel
 import com.shaary.skillperfection.adapters.HobbyAdapter
 import com.shaary.skillperfection.data.Skill
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var skillViewModel: SkillViewModel
+    private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,21 +25,20 @@ class MainActivity : AppCompatActivity() {
 
         val createHobby: Button = findViewById(R.id.create_button)
 
-        skillViewModel = ViewModelProviders.of(this).get(SkillViewModel::class.java)
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
 
         //TODO: add card view
         recycler_view.layoutManager = LinearLayoutManager(this)
         val adapter = HobbyAdapter()
         recycler_view.adapter = adapter
 
-        if (recycler_view.adapter.itemCount == 0) {
-            createHobby.visibility = View.VISIBLE
-        } else {
-            createHobby.visibility = View.INVISIBLE
-        }
-
-        skillViewModel.allSkills.observe(this, Observer { skills ->
+        mainActivityViewModel.allSkills.observe(this, Observer { skills ->
             skills?.let { adapter.submitList(it) }
+            if (skills?.size == 0) {
+                createHobby.visibility = View.VISIBLE
+            } else {
+                createHobby.visibility = View.INVISIBLE
+            }
         })
 
 
@@ -48,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, newSkillRequestCode)
         }
 
+        //Handles onclick from the adapter to open SkillActivity
         adapter.setOnItemClickListener(object : HobbyAdapter.onItemClickListener {
             override fun onItemClick(skill: Skill) {
                 val intent = Intent(this@MainActivity, SkillActivity::class.java)
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == newSkillRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
                 val skill = Skill(name = it.getStringExtra(CreateSkillActivity.EXTRA_NAME))
-                skillViewModel.insert(skill)
+                mainActivityViewModel.insert(skill)
             }
         } else {
             Toast.makeText(

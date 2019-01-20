@@ -1,9 +1,7 @@
 package com.shaary.skillperfection.data
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 
 @Dao
 interface SkillDao {
@@ -15,4 +13,10 @@ interface SkillDao {
 
     @Insert
     fun insert(skill: Skill)
+
+    @Query("delete from skill where id = :id")
+    fun delete(id: Long)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(skill: Skill)
 }
